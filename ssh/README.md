@@ -24,3 +24,22 @@ La aplicacion queda disponible en `http://localhost:8080`.
 ```sh
 ./ssh/stop-local.sh
 ```
+
+## Configurar produccion
+
+Configura las credenciales FTP como secretos del repositorio. Estos comandos
+solicitan cada valor sin guardarlo en el codigo:
+
+```sh
+gh secret set FTP_SERVER
+gh secret set FTP_USERNAME
+gh secret set FTP_PASSWORD
+```
+
+Para disparar el despliegue manual sobre `main`:
+
+```sh
+./ssh/deploy-production.sh
+```
+
+Tambien se ejecuta automaticamente con cada `git push` a `main`.
