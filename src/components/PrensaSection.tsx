@@ -6,7 +6,8 @@ import {
   ArrowRight,
   RefreshCw,
   X,
-  ExternalLink
+  ExternalLink,
+  ImageOff
 } from 'lucide-react';
 import fallbackArticles from '../data/prensa.json';
 import { PressItem } from '../types';
@@ -124,19 +125,29 @@ export const PrensaSection: React.FC = () => {
             className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between"
           >
             <div>
-              {art.imageUrl && (
-                <div className="w-full h-44 overflow-hidden bg-slate-100 border-b border-slate-100 relative">
+              <div className="w-full h-44 overflow-hidden bg-slate-100 border-b border-slate-100 relative">
+                {art.imageUrl ? (
                   <img 
                     src={art.imageUrl} 
                     alt={art.title} 
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                     referrerPolicy="no-referrer"
                   />
-                  <span className="absolute bottom-2 left-2 text-[10px] font-bold bg-slate-900/80 text-white px-2 py-0.5 rounded backdrop-blur-xs">
-                    {art.media}
-                  </span>
-                </div>
-              )}
+                ) : (
+                  <div
+                    className="w-full h-full flex flex-col items-center justify-center gap-2 text-slate-400"
+                    aria-label="Imagen no disponible"
+                  >
+                    <ImageOff className="w-8 h-8" aria-hidden="true" />
+                    <span className="text-[10px] font-semibold uppercase tracking-wider">
+                      Sin imagen
+                    </span>
+                  </div>
+                )}
+                <span className="absolute bottom-2 left-2 text-[10px] font-bold bg-slate-900/80 text-white px-2 py-0.5 rounded backdrop-blur-xs">
+                  {art.media}
+                </span>
+              </div>
 
               <div className="p-6 space-y-3">
                 <div className="flex items-center justify-between gap-2">
@@ -169,14 +180,27 @@ export const PrensaSection: React.FC = () => {
               <span className="text-[11px] font-semibold text-slate-500">
                 {art.media}
               </span>
-              <button
-                type="button"
-                onClick={() => setSelectedArticle(art)}
-                className="text-xs font-bold text-sky-700 hover:text-sky-900 inline-flex items-center gap-1 cursor-pointer"
-              >
-                <span>Leer nota completa</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setSelectedArticle(art)}
+                  className="text-xs font-bold text-sky-700 hover:text-sky-900 inline-flex items-center gap-1 cursor-pointer"
+                >
+                  <span>Leer nota completa</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+                {art.url && (
+                  <a
+                    href={art.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-bold text-slate-600 hover:text-slate-900 inline-flex items-center gap-1"
+                  >
+                    <span>Fuente original</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                )}
+              </div>
             </div>
           </article>
         ))}
