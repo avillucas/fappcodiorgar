@@ -1,0 +1,32 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_GTM_ID: ${VITE_GTM_ID:-GTM-M45MJP52}
+    image: fappcodiorgar-web:latest
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "--quiet", "http://127.0.0.1/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  php-fpm:
+    image: php:8.4-fpm-bookworm
+    working_dir: /var/www/html
+    expose:
+      - "9000"
+    volumes:
+      - ./public:/var/www/html:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "php-fpm -t"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
