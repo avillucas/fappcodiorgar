@@ -42,5 +42,5 @@ jobs:
           set ssl:verify-certificate no;
           set ftp:passive-mode true;
           open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }};
-          mirror -R -e -v ./dist/ /public_html/
+          mirror -R -e -v ./dist/ /
           "
