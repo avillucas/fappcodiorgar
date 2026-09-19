@@ -37,6 +37,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          
+          # Fuerza la conexión FTPS ignorando certificados autofirmados (típicos de hostings compartidos)
+          security: loose          
           server-dir: /public_html/
           local-dir: ./dist/
