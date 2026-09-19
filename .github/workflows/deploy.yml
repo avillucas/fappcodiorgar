@@ -31,14 +31,16 @@ jobs:
       - name: Verificar el bundle
         run: test -f dist/index.html
 
-      - name: Subir archivos a Ferozo por FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          port: 21
-          security: loose          
-          server-dir: /public_html/
-          local-dir: ./dist/
+      - name: Subir archivos a Ferozo (vía lftp)
+        run: |
+          sudo apt-get update
+          sudo apt-get install lftp -y
+          lftp -c "
+          set ftp:ssl-allow true;
+          set ftp:ssl-force true;
+          set ftp:ssl-protect-data true;
+          set ssl:verify-certificate no;
+          set ftp:passive-mode true;
+          open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }};
+          mirror -R -e -v ./dist/ /public_html/
+          "
