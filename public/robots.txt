@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fappcodi.org.ar/sitemap.xml
