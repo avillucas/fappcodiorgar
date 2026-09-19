@@ -28,19 +28,21 @@ export default function App() {
 
   // Apply accessibility classes to document body
   useEffect(() => {
-    const classes: string[] = [];
-    if (accessibilitySettings.fontSize === 'large') classes.push('text-size-large');
-    if (accessibilitySettings.fontSize === 'xlarge') classes.push('text-size-xlarge');
+    const bodyClasses: string[] = [];
+    const rootClasses: string[] = [];
+    if (accessibilitySettings.fontSize === 'large') rootClasses.push('text-size-large');
+    if (accessibilitySettings.fontSize === 'xlarge') rootClasses.push('text-size-xlarge');
 
-    if (accessibilitySettings.contrast === 'high-contrast-dark') classes.push('contrast-dark');
-    if (accessibilitySettings.contrast === 'high-contrast-light') classes.push('contrast-light');
-    if (accessibilitySettings.contrast === 'monochrome') classes.push('contrast-mono');
+    if (accessibilitySettings.contrast === 'high-contrast-dark') bodyClasses.push('high-contrast-dark');
+    if (accessibilitySettings.contrast === 'high-contrast-light') bodyClasses.push('high-contrast-light');
+    if (accessibilitySettings.contrast === 'monochrome') bodyClasses.push('monochrome');
 
-    if (accessibilitySettings.dyslexiaFont) classes.push('font-dyslexic');
-    if (accessibilitySettings.textSpacing) classes.push('text-spacing-wide');
-    if (accessibilitySettings.highlightLinks) classes.push('highlight-links');
+    if (accessibilitySettings.dyslexiaFont) bodyClasses.push('dyslexia-mode');
+    if (accessibilitySettings.textSpacing) bodyClasses.push('enhanced-spacing');
+    if (accessibilitySettings.highlightLinks) bodyClasses.push('highlight-links');
 
-    document.body.className = classes.join(' ');
+    document.documentElement.className = rootClasses.join(' ');
+    document.body.className = bodyClasses.join(' ');
   }, [accessibilitySettings]);
 
   // Screen reader / Speech synthesis of active page content
