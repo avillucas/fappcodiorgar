@@ -37,7 +37,7 @@ export const INSTITUTIONAL_INFO = {
   address: "Hipólito Yrigoyen 3863, Lanús, Provincia de Buenos Aires, Argentina",
   email: "contacto@fappcodi.org.ar",
   emailLink: "mailto:contacto@fappcodi.org.ar",
-  cuit: "30-70754821-4",
+  cuit: "30-70717637-3",
   social: {
     instagram: "https://www.instagram.com/fappcodiscapacidad/",
     linkedin: "https://www.linkedin.com/in/asociaci%C3%B3n-argentina-para-personas-con-discapacidad-10aa10304/",
